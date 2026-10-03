@@ -84,12 +84,12 @@ export default function Navbar() {
 
   return (
     <header style={{
-      background: '#ffffff',
-      borderBottom: '1px solid #e5e7eb',
+      background: '#0d1117',
+      borderBottom: '1px solid #21262d',
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      boxShadow: '0 1px 3px rgba(0,0,0,0.03)',
+      boxShadow: '0 1px 0 rgba(255,255,255,0.04)',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     }}>
       <div style={{
@@ -105,7 +105,7 @@ export default function Navbar() {
         {/* Left Side: Brand Logo + Nav Items + Search */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
           {/* Codify Brand Logo */}
-          <CodifyLogo size="medium" />
+          <CodifyLogo size="medium" light={true} />
 
           {/* Nav Item: Online Compilers */}
           <div ref={compilersDropdown.ref} style={{ position: 'relative' }}>
@@ -118,22 +118,22 @@ export default function Navbar() {
                 padding: '8px 12px',
                 background: 'transparent',
                 border: 'none',
-                color: compilersDropdown.open ? '#2563eb' : '#25265e',
+                color: compilersDropdown.open ? '#60a5fa' : '#c9d1d9',
                 fontSize: '15px',
                 fontWeight: '500',
                 cursor: 'pointer',
                 borderRadius: '6px',
                 transition: 'color 0.15s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#2563eb')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
               onMouseLeave={(e) => {
-                if (!compilersDropdown.open) e.currentTarget.style.color = '#25265e';
+                if (!compilersDropdown.open) e.currentTarget.style.color = '#c9d1d9';
               }}
             >
               <span>Online Compilers</span>
               <ChevronDown
                 size={15}
-                color={compilersDropdown.open ? '#2563eb' : '#4b5563'}
+                color={compilersDropdown.open ? '#60a5fa' : '#8b949e'}
                 style={{
                   transform: compilersDropdown.open ? 'rotate(180deg)' : 'none',
                   transition: 'transform 0.2s ease',
@@ -149,21 +149,21 @@ export default function Navbar() {
                   position: 'absolute',
                   top: 'calc(100% + 12px)',
                   left: 0,
-                  background: '#ffffff',
-                  border: '1px solid #e5e7eb',
+                  background: '#161b22',
+                  border: '1px solid #30363d',
                   borderRadius: '14px',
-                  boxShadow: '0 16px 40px rgba(37,38,94,0.12)',
+                  boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
                   minWidth: '580px',
                   zIndex: 200,
                   overflow: 'hidden',
                   animation: 'fadeIn 0.15s ease-out',
                 }}
               >
-                <div style={{ padding: '18px 24px 12px', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ padding: '18px 24px 12px', borderBottom: '1px solid #21262d' }}>
                   <p style={{
                     fontSize: '11px',
                     fontWeight: '700',
-                    color: '#64748b',
+                    color: '#8b949e',
                     letterSpacing: '1px',
                     marginBottom: '14px',
                   }}>
@@ -181,18 +181,18 @@ export default function Navbar() {
                           padding: '9px 12px',
                           borderRadius: '8px',
                           textDecoration: 'none',
-                          color: '#25265e',
+                          color: '#c9d1d9',
                           fontSize: '14px',
                           fontWeight: '500',
                           transition: 'all 0.15s',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#f3f6ff';
-                          e.currentTarget.style.color = '#2563eb';
+                          e.currentTarget.style.background = 'rgba(37,99,235,0.1)';
+                          e.currentTarget.style.color = '#60a5fa';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = 'transparent';
-                          e.currentTarget.style.color = '#25265e';
+                          e.currentTarget.style.color = '#c9d1d9';
                         }}
                       >
                         <span style={{
@@ -217,12 +217,12 @@ export default function Navbar() {
 
                 <div style={{
                   padding: '12px 24px',
-                  background: '#f8fafc',
+                  background: '#0d1117',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                 }}>
-                  <span style={{ fontSize: '13px', color: '#64748b' }}>
+                  <span style={{ fontSize: '13px', color: '#8b949e' }}>
                     Run 14+ languages directly in browser
                   </span>
                   <Link
@@ -255,22 +255,22 @@ export default function Navbar() {
                 padding: '8px 12px',
                 background: 'transparent',
                 border: 'none',
-                color: tutorialsDropdown.open ? '#2563eb' : '#25265e',
+                color: tutorialsDropdown.open ? '#60a5fa' : '#c9d1d9',
                 fontSize: '15px',
                 fontWeight: '500',
                 cursor: 'pointer',
                 borderRadius: '6px',
                 transition: 'color 0.15s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#2563eb')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
               onMouseLeave={(e) => {
-                if (!tutorialsDropdown.open) e.currentTarget.style.color = '#25265e';
+                if (!tutorialsDropdown.open) e.currentTarget.style.color = '#c9d1d9';
               }}
             >
               <span>Tutorials</span>
               <ChevronDown
                 size={15}
-                color={tutorialsDropdown.open ? '#2563eb' : '#4b5563'}
+                color={tutorialsDropdown.open ? '#60a5fa' : '#8b949e'}
                 style={{
                   transform: tutorialsDropdown.open ? 'rotate(180deg)' : 'none',
                   transition: 'transform 0.2s ease',
@@ -286,10 +286,10 @@ export default function Navbar() {
                   position: 'absolute',
                   top: 'calc(100% + 12px)',
                   left: 0,
-                  background: '#ffffff',
-                  border: '1px solid #e5e7eb',
+                  background: '#161b22',
+                  border: '1px solid #30363d',
                   borderRadius: '14px',
-                  boxShadow: '0 16px 40px rgba(37,38,94,0.12)',
+                  boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
                   minWidth: '520px',
                   zIndex: 200,
                   overflow: 'hidden',
@@ -301,7 +301,7 @@ export default function Navbar() {
                     <p style={{
                       fontSize: '11px',
                       fontWeight: '700',
-                      color: '#64748b',
+                      color: '#8b949e',
                       letterSpacing: '1px',
                       marginBottom: '12px',
                     }}>
@@ -316,18 +316,18 @@ export default function Navbar() {
                             padding: '8px 10px',
                             borderRadius: '6px',
                             textDecoration: 'none',
-                            color: '#25265e',
+                            color: '#c9d1d9',
                             fontSize: '14px',
                             fontWeight: '500',
                             transition: 'all 0.15s',
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#f3f6ff';
-                            e.currentTarget.style.color = '#2563eb';
+                            e.currentTarget.style.background = 'rgba(37,99,235,0.1)';
+                            e.currentTarget.style.color = '#60a5fa';
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.background = 'transparent';
-                            e.currentTarget.style.color = '#25265e';
+                            e.currentTarget.style.color = '#c9d1d9';
                           }}
                         >
                           {t.title}
@@ -340,7 +340,7 @@ export default function Navbar() {
                     <p style={{
                       fontSize: '11px',
                       fontWeight: '700',
-                      color: '#64748b',
+                      color: '#8b949e',
                       letterSpacing: '1px',
                       marginBottom: '12px',
                     }}>
@@ -355,18 +355,18 @@ export default function Navbar() {
                             padding: '8px 10px',
                             borderRadius: '6px',
                             textDecoration: 'none',
-                            color: '#25265e',
+                            color: '#c9d1d9',
                             fontSize: '14px',
                             fontWeight: '500',
                             transition: 'all 0.15s',
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#f3f6ff';
-                            e.currentTarget.style.color = '#2563eb';
+                            e.currentTarget.style.background = 'rgba(37,99,235,0.1)';
+                            e.currentTarget.style.color = '#60a5fa';
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.background = 'transparent';
-                            e.currentTarget.style.color = '#25265e';
+                            e.currentTarget.style.color = '#c9d1d9';
                           }}
                         >
                           {t.title}
@@ -378,8 +378,8 @@ export default function Navbar() {
 
                 <div style={{
                   padding: '12px 24px',
-                  background: '#f8fafc',
-                  borderTop: '1px solid #f1f5f9',
+                  background: '#0d1117',
+                  borderTop: '1px solid #21262d',
                 }}>
                   <Link
                     to="/tutorials"
@@ -440,13 +440,13 @@ export default function Navbar() {
                 alignItems: 'center',
                 gap: '10px',
                 padding: '9px 16px',
-                background: '#ffffff',
-                border: '1px solid #e2e8f0',
+                background: '#161b22',
+                border: '1px solid #30363d',
                 borderRadius: '8px',
                 cursor: 'text',
                 transition: 'all 0.2s ease',
-                boxShadow: searchOpen ? '0 0 0 3px rgba(37,99,235,0.1)' : 'none',
-                borderColor: searchOpen ? '#2563eb' : '#e2e8f0',
+                boxShadow: searchOpen ? '0 0 0 3px rgba(37,99,235,0.15)' : 'none',
+                borderColor: searchOpen ? '#2563eb' : '#30363d',
               }}
             >
               <Search size={18} color="#6b7280" />
@@ -463,7 +463,7 @@ export default function Navbar() {
                   border: 'none',
                   outline: 'none',
                   background: 'transparent',
-                  color: '#1e293b',
+                  color: '#c9d1d9',
                   fontSize: '14px',
                   width: '100%',
                   fontFamily: 'inherit',
@@ -496,17 +496,17 @@ export default function Navbar() {
                 top: 'calc(100% + 8px)',
                 left: 0,
                 right: 0,
-                background: '#ffffff',
-                border: '1px solid #e5e7eb',
+                background: '#161b22',
+                border: '1px solid #30363d',
                 borderRadius: '12px',
-                boxShadow: '0 16px 36px rgba(0,0,0,0.1)',
+                boxShadow: '0 16px 36px rgba(0,0,0,0.5)',
                 zIndex: 300,
                 maxHeight: '380px',
                 overflowY: 'auto',
                 padding: '12px',
               }}>
                 <div style={{ marginBottom: '10px' }}>
-                  <p style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', letterSpacing: '0.5px', padding: '4px 8px' }}>
+                  <p style={{ fontSize: '11px', fontWeight: '700', color: '#8b949e', letterSpacing: '0.5px', padding: '4px 8px' }}>
                     ONLINE COMPILERS
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -522,11 +522,11 @@ export default function Navbar() {
                           padding: '8px 10px',
                           borderRadius: '6px',
                           textDecoration: 'none',
-                          color: '#1e293b',
+                          color: '#c9d1d9',
                           fontSize: '13px',
                           transition: 'background 0.15s',
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f3f6ff')}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(37,99,235,0.1)')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                       >
                         <span style={{
@@ -550,7 +550,7 @@ export default function Navbar() {
                 </div>
 
                 <div>
-                  <p style={{ fontSize: '11px', fontWeight: '700', color: '#64748b', letterSpacing: '0.5px', padding: '4px 8px' }}>
+                  <p style={{ fontSize: '11px', fontWeight: '700', color: '#8b949e', letterSpacing: '0.5px', padding: '4px 8px' }}>
                     TUTORIALS & GUIDES
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -566,11 +566,11 @@ export default function Navbar() {
                           padding: '8px 10px',
                           borderRadius: '6px',
                           textDecoration: 'none',
-                          color: '#1e293b',
+                          color: '#c9d1d9',
                           fontSize: '13px',
                           transition: 'background 0.15s',
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f3f6ff')}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(37,99,235,0.1)')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                       >
                         <span style={{ fontWeight: '600', color: '#2563eb' }}>{t.title}</span>
@@ -595,17 +595,17 @@ export default function Navbar() {
                   alignItems: 'center',
                   gap: '8px',
                   padding: '5px 12px 5px 6px',
-                  background: '#f8fafc',
-                  border: '1px solid #e2e8f0',
+                  background: '#161b22',
+                  border: '1px solid #30363d',
                   borderRadius: '20px',
                   cursor: 'pointer',
-                  color: '#1e293b',
+                  color: '#c9d1d9',
                   fontSize: '13px',
                   fontWeight: '600',
                   transition: 'all 0.15s',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#2563eb')}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#30363d')}
               >
                 <div style={{
                   width: '28px',
@@ -630,10 +630,10 @@ export default function Navbar() {
                   position: 'absolute',
                   top: 'calc(100% + 8px)',
                   right: 0,
-                  background: '#ffffff',
-                  border: '1px solid #e5e7eb',
+                  background: '#161b22',
+                  border: '1px solid #30363d',
                   borderRadius: '12px',
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.1)',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.5)',
                   minWidth: '200px',
                   zIndex: 200,
                   overflow: 'hidden',
@@ -641,9 +641,9 @@ export default function Navbar() {
                 }}
                   onClick={() => userDropdown.setOpen(false)}
                 >
-                  <div style={{ padding: '14px', borderBottom: '1px solid #f1f5f9' }}>
-                    <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>{user.name}</div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>{user.email}</div>
+                  <div style={{ padding: '14px', borderBottom: '1px solid #21262d' }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600', color: '#e6edf3' }}>{user.name}</div>
+                    <div style={{ fontSize: '12px', color: '#8b949e' }}>{user.email}</div>
                   </div>
                   <Link
                     to="/dashboard"
@@ -653,11 +653,11 @@ export default function Navbar() {
                       gap: '10px',
                       padding: '10px 14px',
                       textDecoration: 'none',
-                      color: '#25265e',
+                      color: '#c9d1d9',
                       fontSize: '13px',
                       transition: 'background 0.15s',
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = '#f3f6ff')}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(37,99,235,0.1)')}
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                   >
                     <User size={15} /> My Snippets
@@ -678,7 +678,7 @@ export default function Navbar() {
                       textAlign: 'left',
                       transition: 'background 0.15s',
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = '#fee2e2')}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(220,38,38,0.1)')}
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                   >
                     <LogOut size={15} /> Sign Out
@@ -692,15 +692,15 @@ export default function Navbar() {
                 to="/login"
                 style={{
                   padding: '8px 16px',
-                  color: '#25265e',
+                  color: '#c9d1d9',
                   textDecoration: 'none',
                   fontSize: '14px',
                   fontWeight: '600',
                   borderRadius: '6px',
                   transition: 'color 0.15s',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#2563eb')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#25265e')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#c9d1d9')}
               >
                 Sign In
               </Link>
