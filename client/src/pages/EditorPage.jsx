@@ -17,6 +17,7 @@ import {
   FileCode,
   Clock,
   Cpu,
+  Terminal,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { LANGUAGES, DEFAULT_CODE, LANGUAGE_MAP } from '../utils/constants';
@@ -81,6 +82,9 @@ export default function EditorPage({ initialSnippet = null }) {
   const [snippetTitle, setSnippetTitle] = useState(initialSnippet?.title || '');
   const [challengeTitle, setChallengeTitle] = useState(initialSnippet?.challengeTitle || '');
 
+  // Responsive mobile tab ('code' | 'output')
+  const [mobileTab, setMobileTab] = useState('code');
+
   // AI Assistant State
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
@@ -134,6 +138,9 @@ export default function EditorPage({ initialSnippet = null }) {
 
   const handleRun = useCallback(async () => {
     if (!code.trim()) return;
+    if (typeof window !== 'undefined' && window.innerWidth <= 900) {
+      setMobileTab('output');
+    }
     setRunning(true);
     setOutput('');
     setRunMeta(null);
@@ -184,24 +191,30 @@ export default function EditorPage({ initialSnippet = null }) {
   const selectedLang = LANGUAGE_MAP[language] || LANGUAGE_MAP['python'];
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc(100vh - 56px)',
-      background: 'var(--bg-primary)',
-      overflow: 'hidden',
-    }}>
-      {/* Toolbar */}
-      <div style={{
+    <div
+      className="editor-page-container"
+      style={{
         display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        padding: '10px 16px',
-        background: 'var(--bg-secondary)',
-        borderBottom: '1px solid var(--border-color)',
-        flexWrap: 'wrap',
-        zIndex: 10,
-      }}>
+        flexDirection: 'column',
+        height: 'calc(100vh - 66px)',
+        background: 'var(--bg-primary)',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Toolbar */}
+      <div
+        className="editor-toolbar"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          padding: '10px 16px',
+          background: 'var(--bg-secondary)',
+          borderBottom: '1px solid var(--border-color)',
+          flexWrap: 'wrap',
+          zIndex: 10,
+        }}
+      >
         {/* Language selector */}
         <div style={{ position: 'relative' }}>
           <button
@@ -366,6 +379,62 @@ export default function EditorPage({ initialSnippet = null }) {
         </button>
       </div>
 
+      {/* Mobile Tab Switcher */}
+      <div className="editor-mobile-tab-switch" style={{
+        display: 'none',
+        background: '#161b22',
+        borderBottom: '1px solid #30363d',
+        padding: '6px 12px',
+        gap: '8px',
+      }}>
+        <button
+          onClick={() => setMobileTab('code')}
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            borderRadius: '6px',
+            border: 'none',
+            background: mobileTab === 'code' ? '#2563eb' : 'transparent',
+            color: mobileTab === 'code' ? '#fff' : '#8b949e',
+            fontSize: '13px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+          }}
+        >
+          <FileCode size={14} /> Code Editor
+        </button>
+        <button
+          onClick={() => setMobileTab('output')}
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            borderRadius: '6px',
+            border: 'none',
+            background: mobileTab === 'output' ? '#2563eb' : 'transparent',
+            color: mobileTab === 'output' ? '#fff' : '#8b949e',
+            fontSize: '13px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+          }}
+        >
+          <Terminal size={14} /> Terminal Output
+          {output && (
+            <span style={{
+              width: 7, height: 7, borderRadius: '50%',
+              background: outputStatus === 'error' ? '#ef4444' : '#22c55e',
+            }} />
+          )}
+        </button>
+      </div>
+
       {/* Main layout: editor + output */}
       <div style={{
         display: 'grid',
@@ -377,12 +446,15 @@ export default function EditorPage({ initialSnippet = null }) {
         className="editor-layout"
       >
         {/* LEFT: Editor */}
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          borderRight: '1px solid var(--border-color)',
-          overflow: 'hidden',
-        }}>
+        <div
+          className={`editor-pane-code ${mobileTab !== 'code' ? 'mobile-hide' : ''}`}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            borderRight: '1px solid var(--border-color)',
+            overflow: 'hidden',
+          }}
+        >
           <div style={{
             padding: '8px 16px',
             background: 'var(--bg-secondary)',
@@ -424,7 +496,10 @@ export default function EditorPage({ initialSnippet = null }) {
         </div>
 
         {/* RIGHT: Output + stdin */}
-        <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <div
+          className={`editor-pane-output ${mobileTab !== 'output' ? 'mobile-hide' : ''}`}
+          style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+        >
           {/* stdin */}
           <div style={{
             padding: '10px 16px',
@@ -611,7 +686,7 @@ export default function EditorPage({ initialSnippet = null }) {
           right: 0,
           bottom: 0,
           width: '460px',
-          maxWidth: '92vw',
+          maxWidth: '100vw',
           background: '#161b22',
           borderLeft: '1px solid #30363d',
           zIndex: 1000,

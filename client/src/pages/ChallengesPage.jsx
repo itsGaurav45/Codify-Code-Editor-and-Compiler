@@ -60,7 +60,7 @@ export default function ChallengesPage() {
           </p>
 
           {/* Language selector for challenges */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#161b22', padding: '6px 12px', borderRadius: '10px', border: '1px solid #30363d' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#161b22', padding: '6px 12px', borderRadius: '10px', border: '1px solid #30363d', flexWrap: 'wrap', justifyContent: 'center' }}>
             <span style={{ fontSize: '13px', color: '#8b949e', fontWeight: '500' }}>Choose language to solve:</span>
             {[
               { id: 'python', label: 'Python', tag: 'PY' },

@@ -324,3 +324,104 @@ code, pre, .mono {
 [data-tooltip]:hover::after {
   opacity: 1;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE LAYOUTS & MEDIA QUERIES
+───────────────────────────────────────────────────────────── */
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+  display: none;
+}
+
+.mobile-nav-drawer {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .desktop-nav-items {
+    display: none !important;
+  }
+  .desktop-search-bar {
+    display: none !important;
+  }
+  .desktop-auth-buttons {
+    display: none !important;
+  }
+  .mobile-nav-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-nav-drawer {
+    display: flex !important;
+  }
+}
+
+/* Landing Page Hero Responsive */
+@media (max-width: 900px) {
+  .landing-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    padding: 48px 16px 40px !important;
+    text-align: center;
+  }
+  .landing-hero-text-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landing-hero-buttons {
+    justify-content: center !important;
+  }
+  .code-mockup-container {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+/* Editor Page Responsive */
+@media (max-width: 900px) {
+  .editor-page-container {
+    height: auto !important;
+    min-height: calc(100vh - 66px);
+  }
+  .editor-toolbar {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    padding: 10px 14px !important;
+    gap: 8px !important;
+  }
+  .editor-layout {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: minmax(360px, 45vh) minmax(280px, 40vh) !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .editor-mobile-tab-switch {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .editor-mobile-tab-switch {
+    display: none !important;
+  }
+}
+
+/* General Mobile Padding and Typography Helpers */
+@media (max-width: 640px) {
+  .mobile-p-4 {
+    padding: 16px !important;
+  }
+  .mobile-text-center {
+    text-align: center !important;
+  }
+  .mobile-flex-col {
+    flex-direction: column !important;
+  }
+  .mobile-w-full {
+    width: 100% !important;
+  }
+}
+

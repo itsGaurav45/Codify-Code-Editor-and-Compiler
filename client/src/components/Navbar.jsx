@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Search, ChevronDown, Terminal, BookOpen, LogOut, User, X } from 'lucide-react';
+import { Search, ChevronDown, Terminal, BookOpen, LogOut, User, X, Menu, Code2 } from 'lucide-react';
 import CodifyLogo from './CodifyLogo';
 import { LANGUAGES } from '../utils/constants';
 
@@ -57,6 +57,9 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const searchRef = useRef(null);
 
+  // Mobile menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     const handler = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -103,12 +106,14 @@ export default function Navbar() {
         gap: '20px',
       }}>
         {/* Left Side: Brand Logo + Nav Items + Search */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: 1 }}>
           {/* Codify Brand Logo */}
           <CodifyLogo size="medium" light={true} />
 
-          {/* Nav Item: Online Compilers */}
-          <div ref={compilersDropdown.ref} style={{ position: 'relative' }}>
+          {/* Desktop Nav Items */}
+          <div className="desktop-nav-items" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {/* Nav Item: Online Compilers */}
+            <div ref={compilersDropdown.ref} style={{ position: 'relative' }}>
             <button
               onClick={() => compilersDropdown.setOpen(!compilersDropdown.open)}
               style={{
@@ -409,30 +414,32 @@ export default function Navbar() {
               gap: '6px',
               padding: '8px 12px',
               textDecoration: 'none',
-              color: '#25265e',
+              color: '#c9d1d9',
               fontSize: '15px',
               fontWeight: '500',
               borderRadius: '6px',
               transition: 'color 0.15s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#2563eb')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#25265e')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#c9d1d9')}
           >
             <span>Practice</span>
             <span style={{
               fontSize: '10px',
               fontWeight: '700',
-              background: 'rgba(37, 99, 235, 0.1)',
-              color: '#2563eb',
+              background: 'rgba(37, 99, 235, 0.2)',
+              color: '#60a5fa',
+              border: '1px solid rgba(37, 99, 235, 0.4)',
               padding: '1px 6px',
               borderRadius: '10px',
             }}>
               NEW
             </span>
           </Link>
+        </div>
 
-          {/* Programiz-style Search Bar */}
-          <div ref={searchRef} style={{ position: 'relative', flex: 1, maxWidth: '380px' }}>
+        {/* Programiz-style Search Bar */}
+        <div className="desktop-search-bar" ref={searchRef} style={{ position: 'relative', flex: 1, maxWidth: '380px' }}>
             <div
               onClick={() => setSearchOpen(true)}
               style={{
@@ -584,8 +591,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right Side: Action CTA / User Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
+        {/* Right Side: Action CTA / User Profile (Desktop) */}
+        <div className="desktop-auth-buttons" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
           {user ? (
             <div ref={userDropdown.ref} style={{ position: 'relative' }}>
               <button
@@ -689,25 +696,9 @@ export default function Navbar() {
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Link
-                to="/login"
+                to="/signup"
                 style={{
-                  padding: '8px 16px',
-                  color: '#c9d1d9',
-                  textDecoration: 'none',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  borderRadius: '6px',
-                  transition: 'color 0.15s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#c9d1d9')}
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/editor"
-                style={{
-                  padding: '9px 18px',
+                  padding: '8px 18px',
                   background: '#2563eb',
                   color: '#ffffff',
                   textDecoration: 'none',
@@ -720,12 +711,359 @@ export default function Navbar() {
                 onMouseEnter={(e) => (e.currentTarget.style.background = '#1d4ed8')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = '#2563eb')}
               >
-                Start Coding
+                Sign Up
+              </Link>
+              <Link
+                to="/login"
+                style={{
+                  padding: '8px 14px',
+                  color: '#c9d1d9',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  borderRadius: '6px',
+                  transition: 'color 0.15s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#60a5fa')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#c9d1d9')}
+              >
+                Sign In
               </Link>
             </div>
           )}
         </div>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <button
+          className="mobile-nav-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{
+            background: '#161b22',
+            border: '1px solid #30363d',
+            borderRadius: '8px',
+            padding: '8px 10px',
+            color: '#c9d1d9',
+            cursor: 'pointer',
+            transition: 'all 0.15s',
+          }}
+          aria-label="Toggle Navigation"
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
+
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <div style={{
+          background: '#0d1117',
+          borderBottom: '1px solid #30363d',
+          padding: '16px 20px 24px',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          animation: 'fadeIn 0.2s ease-out',
+        }}>
+          {/* Mobile Search Input */}
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '9px 14px',
+              background: '#161b22',
+              border: '1px solid #30363d',
+              borderRadius: '8px',
+            }}>
+              <Search size={16} color="#6b7280" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search compilers, tutorials..."
+                style={{
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
+                  color: '#c9d1d9',
+                  fontSize: '14px',
+                  width: '100%',
+                }}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer', padding: 0 }}
+                >
+                  <X size={15} />
+                </button>
+              )}
+            </div>
+
+            {searchQuery && (
+              <div style={{
+                marginTop: '8px',
+                background: '#161b22',
+                border: '1px solid #30363d',
+                borderRadius: '8px',
+                padding: '8px',
+                maxHeight: '200px',
+                overflowY: 'auto',
+              }}>
+                {filteredCompilers.slice(0, 4).map((l) => (
+                  <Link
+                    key={l.id}
+                    to={`/editor?lang=${l.id}`}
+                    onClick={() => { setMobileMenuOpen(false); setSearchQuery(''); }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px',
+                      color: '#60a5fa',
+                      fontSize: '13px',
+                      textDecoration: 'none',
+                      borderRadius: '6px',
+                    }}
+                  >
+                    <span>Online {l.label} Compiler</span>
+                  </Link>
+                ))}
+                {filteredTutorials.slice(0, 4).map((t) => (
+                  <Link
+                    key={t.title}
+                    to={t.path}
+                    onClick={() => { setMobileMenuOpen(false); setSearchQuery(''); }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px',
+                      color: '#c9d1d9',
+                      fontSize: '13px',
+                      textDecoration: 'none',
+                      borderRadius: '6px',
+                    }}
+                  >
+                    <span>{t.title}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Navigation Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <Link
+              to="/editor"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '12px 14px',
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: '8px',
+                color: '#e6edf3',
+                fontSize: '14px',
+                fontWeight: '600',
+                textDecoration: 'none',
+              }}
+            >
+              <Terminal size={18} color="#60a5fa" />
+              <span>Online Compilers & IDE</span>
+            </Link>
+
+            <Link
+              to="/tutorials"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '12px 14px',
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: '8px',
+                color: '#e6edf3',
+                fontSize: '14px',
+                fontWeight: '600',
+                textDecoration: 'none',
+              }}
+            >
+              <BookOpen size={18} color="#60a5fa" />
+              <span>Step-by-Step Tutorials</span>
+            </Link>
+
+            <Link
+              to="/challenges"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 14px',
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: '8px',
+                color: '#e6edf3',
+                fontSize: '14px',
+                fontWeight: '600',
+                textDecoration: 'none',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <Code2 size={18} color="#60a5fa" />
+                <span>Practice Challenges</span>
+              </div>
+              <span style={{
+                fontSize: '10px',
+                fontWeight: '700',
+                background: 'rgba(37,99,235,0.2)',
+                color: '#60a5fa',
+                border: '1px solid rgba(37,99,235,0.4)',
+                padding: '1px 6px',
+                borderRadius: '10px',
+              }}>
+                NEW
+              </span>
+            </Link>
+          </div>
+
+          {/* Popular Compilers Quick Grid */}
+          <div>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: '#8b949e', letterSpacing: '0.5px' }}>
+              POPULAR COMPILERS
+            </span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', marginTop: '8px' }}>
+              {COMPILERS.slice(0, 6).map((c) => (
+                <Link
+                  key={c.lang}
+                  to={`/editor?lang=${c.lang}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px',
+                    background: '#161b22',
+                    border: '1px solid #21262d',
+                    borderRadius: '6px',
+                    color: '#c9d1d9',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Auth Actions in Mobile Menu */}
+          <div style={{ borderTop: '1px solid #21262d', paddingTop: '16px' }}>
+            {user ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 0' }}>
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: '700',
+                    fontSize: '14px',
+                  }}>
+                    {user.name[0].toUpperCase()}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: '600', color: '#f0f6fc' }}>{user.name}</div>
+                    <div style={{ fontSize: '12px', color: '#8b949e' }}>{user.email}</div>
+                  </div>
+                </div>
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px',
+                    background: '#161b22',
+                    border: '1px solid #21262d',
+                    borderRadius: '8px',
+                    color: '#c9d1d9',
+                    fontSize: '13px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <User size={15} /> My Snippets
+                </Link>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px',
+                    background: 'rgba(220,38,38,0.1)',
+                    border: '1px solid rgba(220,38,38,0.3)',
+                    borderRadius: '8px',
+                    color: '#ef4444',
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <LogOut size={15} /> Sign Out
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Link
+                  to="/signup"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '10px 16px',
+                    background: '#2563eb',
+                    color: '#ffffff',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                  }}
+                >
+                  Sign Up
+                </Link>
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '10px 16px',
+                    background: '#161b22',
+                    border: '1px solid #30363d',
+                    color: '#c9d1d9',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                  }}
+                >
+                  Sign In
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

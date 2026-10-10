@@ -1,37 +1,37 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowRight, Terminal, BookOpen, Code2, Zap, ShieldCheck, Save } from 'lucide-react';
+import { ArrowRight, BookOpen, Code2, Zap, ShieldCheck, Save } from 'lucide-react';
 import CodifyLogo from '../components/CodifyLogo';
 
 /* ─── LANGUAGE DATA ───────────────────────────────── */
 const COMPILERS = [
-  { label: 'Python Compiler',     tag: 'PY',  lang: 'python',     color: '#3572A5' },
-  { label: 'JavaScript Compiler', tag: 'JS',  lang: 'javascript', color: '#f0db4f' },
-  { label: 'Java Compiler',       tag: 'JV',  lang: 'java',       color: '#ED8B00' },
-  { label: 'C++ Compiler',        tag: 'C++', lang: 'cpp',        color: '#f34b7d' },
-  { label: 'C Compiler',          tag: 'C',   lang: 'c',          color: '#555555' },
-  { label: 'C# Compiler',         tag: 'C#',  lang: 'csharp',     color: '#9B4F96' },
-  { label: 'TypeScript Compiler', tag: 'TS',  lang: 'typescript', color: '#3178c6' },
-  { label: 'Go Compiler',         tag: 'GO',  lang: 'go',         color: '#00ADD8' },
-  { label: 'Rust Compiler',       tag: 'RS',  lang: 'rust',       color: '#dea584' },
-  { label: 'Kotlin Compiler',     tag: 'KT',  lang: 'kotlin',     color: '#A97BFF' },
-  { label: 'Swift Compiler',      tag: 'SW',  lang: 'swift',      color: '#F05138' },
-  { label: 'PHP Compiler',        tag: 'PHP', lang: 'php',        color: '#4F5D95' },
+  { label: 'Python Compiler', tag: 'PY', lang: 'python', color: '#3572A5' },
+  { label: 'JavaScript Compiler', tag: 'JS', lang: 'javascript', color: '#f0db4f' },
+  { label: 'Java Compiler', tag: 'JV', lang: 'java', color: '#ED8B00' },
+  { label: 'C++ Compiler', tag: 'C++', lang: 'cpp', color: '#f34b7d' },
+  { label: 'C Compiler', tag: 'C', lang: 'c', color: '#555555' },
+  { label: 'C# Compiler', tag: 'C#', lang: 'csharp', color: '#9B4F96' },
+  { label: 'TypeScript Compiler', tag: 'TS', lang: 'typescript', color: '#3178c6' },
+  { label: 'Go Compiler', tag: 'GO', lang: 'go', color: '#00ADD8' },
+  { label: 'Rust Compiler', tag: 'RS', lang: 'rust', color: '#dea584' },
+  { label: 'Kotlin Compiler', tag: 'KT', lang: 'kotlin', color: '#A97BFF' },
+  { label: 'Swift Compiler', tag: 'SW', lang: 'swift', color: '#F05138' },
+  { label: 'PHP Compiler', tag: 'PHP', lang: 'php', color: '#4F5D95' },
 ];
 
 const TUTORIALS = [
-  { label: 'Learn Python',      lang: 'python'     },
-  { label: 'Learn JavaScript',  lang: 'javascript' },
-  { label: 'Learn Java',        lang: 'java'       },
-  { label: 'Learn C++',         lang: 'cpp'        },
-  { label: 'Learn C',           lang: 'c'          },
-  { label: 'Learn TypeScript',  lang: 'typescript' },
-  { label: 'Learn Go',          lang: 'go'         },
-  { label: 'Learn Rust',        lang: 'rust'       },
-  { label: 'Learn Kotlin',      lang: 'kotlin'     },
-  { label: 'Learn Swift',       lang: 'swift'      },
-  { label: 'Learn C#',          lang: 'csharp'     },
-  { label: 'Learn PHP',         lang: 'php'        },
+  { label: 'Learn Python', lang: 'python' },
+  { label: 'Learn JavaScript', lang: 'javascript' },
+  { label: 'Learn Java', lang: 'java' },
+  { label: 'Learn C++', lang: 'cpp' },
+  { label: 'Learn C', lang: 'c' },
+  { label: 'Learn TypeScript', lang: 'typescript' },
+  { label: 'Learn Go', lang: 'go' },
+  { label: 'Learn Rust', lang: 'rust' },
+  { label: 'Learn Kotlin', lang: 'kotlin' },
+  { label: 'Learn Swift', lang: 'swift' },
+  { label: 'Learn C#', lang: 'csharp' },
+  { label: 'Learn PHP', lang: 'php' },
 ];
 
 const WHY = [
@@ -54,32 +54,32 @@ const WHY = [
 
 /* ─── HERO CODE MOCKUP ───────────────────────────── */
 const DEMO_CODE = [
-  { n: 1,  t: 'keyword', v: 'def ' },
-  { n: 1,  t: 'fn',      v: 'bubble_sort' },
-  { n: 1,  t: 'plain',   v: '(arr):' },
-  { n: 2,  t: 'keyword', v: '    n = ' },
-  { n: 2,  t: 'fn',      v: 'len' },
-  { n: 2,  t: 'plain',   v: '(arr)' },
-  { n: 3,  t: 'keyword', v: '    for ' },
-  { n: 3,  t: 'plain',   v: 'i ' },
-  { n: 3,  t: 'keyword', v: 'in ' },
-  { n: 3,  t: 'fn',      v: 'range' },
-  { n: 3,  t: 'plain',   v: '(n):' },
-  { n: 4,  t: 'keyword', v: '        for ' },
-  { n: 4,  t: 'plain',   v: 'j ' },
-  { n: 4,  t: 'keyword', v: 'in ' },
-  { n: 4,  t: 'fn',      v: 'range' },
-  { n: 4,  t: 'plain',   v: '(n-i-1):' },
-  { n: 5,  t: 'keyword', v: '            if ' },
-  { n: 5,  t: 'plain',   v: 'arr[j] > arr[j+1]:' },
-  { n: 6,  t: 'plain',   v: '                arr[j], arr[j+1] = arr[j+1], arr[j]' },
-  { n: 7,  t: 'plain',   v: '    return arr' },
-  { n: 8,  t: 'plain',   v: '' },
-  { n: 9,  t: 'plain',   v: 'nums = [64, 34, 25, 12, 22, 11, 90]' },
-  { n: 10, t: 'fn',      v: 'print' },
-  { n: 10, t: 'plain',   v: '(' },
-  { n: 10, t: 'str',     v: '"Sorted:"' },
-  { n: 10, t: 'plain',   v: ', bubble_sort(nums))' },
+  { n: 1, t: 'keyword', v: 'def ' },
+  { n: 1, t: 'fn', v: 'bubble_sort' },
+  { n: 1, t: 'plain', v: '(arr):' },
+  { n: 2, t: 'keyword', v: '    n = ' },
+  { n: 2, t: 'fn', v: 'len' },
+  { n: 2, t: 'plain', v: '(arr)' },
+  { n: 3, t: 'keyword', v: '    for ' },
+  { n: 3, t: 'plain', v: 'i ' },
+  { n: 3, t: 'keyword', v: 'in ' },
+  { n: 3, t: 'fn', v: 'range' },
+  { n: 3, t: 'plain', v: '(n):' },
+  { n: 4, t: 'keyword', v: '        for ' },
+  { n: 4, t: 'plain', v: 'j ' },
+  { n: 4, t: 'keyword', v: 'in ' },
+  { n: 4, t: 'fn', v: 'range' },
+  { n: 4, t: 'plain', v: '(n-i-1):' },
+  { n: 5, t: 'keyword', v: '            if ' },
+  { n: 5, t: 'plain', v: 'arr[j] > arr[j+1]:' },
+  { n: 6, t: 'plain', v: '                arr[j], arr[j+1] = arr[j+1], arr[j]' },
+  { n: 7, t: 'plain', v: '    return arr' },
+  { n: 8, t: 'plain', v: '' },
+  { n: 9, t: 'plain', v: 'nums = [64, 34, 25, 12, 22, 11, 90]' },
+  { n: 10, t: 'fn', v: 'print' },
+  { n: 10, t: 'plain', v: '(' },
+  { n: 10, t: 'str', v: '"Sorted:"' },
+  { n: 10, t: 'plain', v: ', bubble_sort(nums))' },
 ];
 
 const TOKEN_COLOR = { keyword: '#ff7b72', fn: '#d2a8ff', str: '#a5d6ff', plain: '#c9d1d9' };
@@ -173,17 +173,20 @@ export default function LandingPage() {
     <div style={{ minHeight: '100vh', background: '#0d1117', color: '#c9d1d9' }}>
 
       {/* ── HERO ─────────────────────────────────────── */}
-      <section style={{
-        padding: '80px 24px 64px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '64px',
-        alignItems: 'center',
-      }}>
+      <section
+        className="landing-hero-grid"
+        style={{
+          padding: '80px 24px 64px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '64px',
+          alignItems: 'center',
+        }}
+      >
         {/* Left */}
-        <div>
+        <div className="landing-hero-text-wrap">
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '5px 14px', marginBottom: '24px',
@@ -213,7 +216,7 @@ export default function LandingPage() {
             Compile & run code in <strong style={{ color: '#c9d1d9' }}>20+ programming languages</strong> — instantly.
           </p>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
+          <div className="landing-hero-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={() => navigate('/editor')}
               style={{
@@ -225,7 +228,7 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.background = '#1d4ed8'}
               onMouseLeave={e => e.currentTarget.style.background = '#2563eb'}
             >
-              <Terminal size={17} /> Start Coding Free
+              Start Coding Free
             </button>
             <button
               onClick={() => navigate('/tutorials')}
@@ -241,20 +244,10 @@ export default function LandingPage() {
               <BookOpen size={17} /> Browse Tutorials
             </button>
           </div>
-
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: '36px', flexWrap: 'wrap' }}>
-            {[['20+', 'Languages'], ['< 2s', 'Execution Time'], ['100%', 'Browser-Based'], ['Free', 'Forever']].map(([val, label]) => (
-              <div key={label}>
-                <div style={{ fontSize: '22px', fontWeight: '800', color: '#60a5fa', lineHeight: 1 }}>{val}</div>
-                <div style={{ fontSize: '12px', color: '#6e7681', marginTop: '3px' }}>{label}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Right — Code Mockup */}
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="code-mockup-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <CodeMockup />
         </div>
       </section>
@@ -368,7 +361,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── WHY CODIFY ───────────────────────────────── */}
-      <section style={{ padding: '64px 24px', background: '#161b22', borderTop: '1px solid #21262d', borderBottom: '1px solid #21262d' }}>
+      <section style={{ padding: '64px 24px', background: '#161b22', borderTop: '1px solid #21262d' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', fontSize: '26px', fontWeight: '700', color: '#f0f6fc', marginBottom: '48px' }}>
             Why Codify?
@@ -398,48 +391,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────── */}
-      <section style={{ padding: '80px 24px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '540px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '30px', fontWeight: '800', letterSpacing: '-1px', color: '#f0f6fc', marginBottom: '12px' }}>
-            Start coding today.
-          </h2>
-          <p style={{ color: '#8b949e', fontSize: '16px', lineHeight: 1.7, marginBottom: '32px' }}>
-            No installation. No sign-up required. Just open your browser and write code.
-          </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => navigate('/editor')}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '14px 32px', background: '#2563eb', color: '#fff',
-                border: 'none', borderRadius: '8px', fontSize: '15px', fontWeight: '600',
-                cursor: 'pointer', transition: 'background 0.15s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = '#1d4ed8'}
-              onMouseLeave={e => e.currentTarget.style.background = '#2563eb'}
-            >
-              <Terminal size={17} /> Open Code Editor
-            </button>
-            <button
-              onClick={() => navigate('/signup')}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '14px 32px', background: 'transparent', color: '#c9d1d9',
-                border: '1px solid #30363d', borderRadius: '8px', fontSize: '15px', fontWeight: '600',
-                cursor: 'pointer', transition: 'all 0.15s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#2563eb'; e.currentTarget.style.color = '#60a5fa'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#30363d'; e.currentTarget.style.color = '#c9d1d9'; }}
-            >
-              <Save size={16} /> Create Free Account
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* ── FOOTER ───────────────────────────────────── */}
-      <footer style={{ background: '#161b22', borderTop: '1px solid #21262d', padding: '48px 24px 28px' }}>
+      <footer style={{ background: '#0d1117', borderTop: '1px solid #21262d', padding: '48px 24px 28px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '32px', marginBottom: '40px' }}>
             <div>
@@ -479,7 +432,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid #21262d', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-            <p style={{ fontSize: '13px', color: '#6e7681' }}>© 2024 Codify. Built with React, Monaco Editor & Judge0.</p>
+            <p style={{ fontSize: '13px', color: '#6e7681' }}>© 2026 Codify. Built with React, Monaco Editor & Judge0.</p>
             <p style={{ fontSize: '13px', color: '#6e7681' }}>Free to use forever. No credit card required.</p>
           </div>
         </div>

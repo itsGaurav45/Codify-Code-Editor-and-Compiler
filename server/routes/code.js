@@ -21,7 +21,7 @@ const LANGUAGE_IDS = {
   r: 80,          // R (4.0.0)
 };
 
-const JUDGE0_BASE_URL = 'https://judge0-ce.p.rapidapi.com';
+const JUDGE0_BASE_URL = 'https://ce.judge0.com';
 
 // @route  POST /api/code/run
 // @desc   Submit code to Judge0 and return output
@@ -39,23 +39,10 @@ router.post('/run', async (req, res) => {
       return res.status(400).json({ success: false, message: `Unsupported language: ${language}` });
     }
 
-    const apiKey = process.env.JUDGE0_API_KEY;
-    if (!apiKey || apiKey === 'your_rapidapi_judge0_key_here') {
-      // Demo mode: return mock output when no API key is set
-      return res.json({
-        success: true,
-        output: `[Demo Mode] Code execution is disabled.\nPlease add your JUDGE0_API_KEY in server/.env\n\nYour ${language} code:\n${code.substring(0, 200)}${code.length > 200 ? '...' : ''}`,
-        status: 'Demo',
-        time: null,
-        memory: null,
-      });
-    }
-
     const headers = {
       'Content-Type': 'application/json',
-      'X-RapidAPI-Key': apiKey,
-      'X-RapidAPI-Host': process.env.JUDGE0_API_HOST || 'judge0-ce.p.rapidapi.com',
     };
+
 
     // Submit the code
     const submitResponse = await axios.post(
